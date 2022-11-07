@@ -15,18 +15,28 @@ const handleBlogRouter = (req, res) => {
     if (method === 'GET' && res.path === '/api/blog/list') {
         const author = req.query.author || ''
         const keyword = req.query.keyword || ''
-        const listData = getList(author, keyword)
-        return new SuccessModel(listData)
+        // const listData = getList(author, keyword)
+        // return new SuccessModel(listData)
+        const result = getList(author, keyword)
+        return result.then(listData => {
+            return new SuccessModel(listData)
+        })
     }
     // 获取博客详情
     if (method === 'GET' && res.path === '/api/blog/detail') {
-        const detailData = getDetail(id)
-        return new SuccessModel(detailData)
+
+        const detailResult = getDetail(id)
+        return detailResult.then(detailData => {
+            return new SuccessModel(detailData)
+        })
     }
     // 新建博客
     if (method === 'POST' && res.path === '/api/blog/new') {
-        const data = newBlog(req.body)
-        return new SuccessModel(data)
+        req.body.author = 'zhangsan' // TODO: mock data
+        const result = newBlog(req.body)
+        return result.then(data => {
+            return new SuccessModel(data)
+        })
     }
     // 更新博客
     if (method === 'POST' && res.path === '/api/blog/update') {

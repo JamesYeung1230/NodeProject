@@ -1,4 +1,4 @@
-const mysql = requrie('mysql')
+const mysql = require('mysql')
 const { MYSQL_CONF } = require('../conf/db')
 
 // 创建链接对象
