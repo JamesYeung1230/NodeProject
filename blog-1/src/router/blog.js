@@ -40,19 +40,24 @@ const handleBlogRouter = (req, res) => {
     }
     // 更新博客
     if (method === 'POST' && res.path === '/api/blog/update') {
-        const updateRes = updateBlog(id, req.body)
-        if (updateRes) {
-            return new SuccessModel()
-        }
-        return new ErrorModel('Update Fail')
+        const result = updateBlog(id, req.body)
+        return result.then((updateRes) => {            
+            if (updateRes) {
+                return new SuccessModel()
+            }
+            return new ErrorModel('Update Fail')
+        })
     }
     // 删除博客
     if (method === 'POST' && res.path === '/api/blog/delete') {
-        const delRes = deleteBlog(id)
-        if (delRes) {
-            return new SuccessModel()
-        }
-        return new ErrorModel('Delete Fail')
+        const author = 'zhangsan' // TODO: mock data
+        const result = deleteBlog(id, author)
+        return result.then(delRes => {
+            if (delRes) {
+                return new SuccessModel()
+            }
+            return new ErrorModel('Delete Fail')
+        })
     }
 }
 
