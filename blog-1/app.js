@@ -36,10 +36,23 @@ const serverHandle = (req, res) => {
 
     // 获取 path
     const url = req.url
-    res.path = url.split('?')[0]
+    req.path = url.split('?')[0]
 
     // 解析 query
     req.query = querystring.parse(url.split('?')[1])
+
+    // 解析 cookie
+    req.cookie = {}
+    const cookieStr = req.headers.cookie || ''
+    cookieStr.split(';').forEach((item) => {
+        if (!item) {
+            return
+        }
+        const arr = item.split('=')
+        const [key, value] = arr
+        req.cookie[key] = value
+    })
+    console.log('req.cookie is', req.cookie);
 
     // 处理 postData
     getPostData(req).then(postData => {
