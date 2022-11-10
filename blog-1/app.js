@@ -50,7 +50,7 @@ const serverHandle = (req, res) => {
         }
         const arr = item.split('=')
         const [key, value] = arr
-        req.cookie[key] = value
+        req.cookie[key.trim()] = value.trim()
     })
     console.log('req.cookie is', req.cookie);
 
