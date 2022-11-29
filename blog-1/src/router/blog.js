@@ -19,7 +19,7 @@ const handleBlogRouter = (req, res) => {
   const id = req.query.id || "";
 
   // 获取博客列表
-  if (method === "GET" && res.path === "/api/blog/list") {
+  if (method === "GET" && req.path === "/api/blog/list") {
     const author = req.query.author || "";
     const keyword = req.query.keyword || "";
     // const listData = getList(author, keyword)
@@ -30,14 +30,14 @@ const handleBlogRouter = (req, res) => {
     });
   }
   // 获取博客详情
-  if (method === "GET" && res.path === "/api/blog/detail") {
+  if (method === "GET" && req.path === "/api/blog/detail") {
     const detailResult = getDetail(id);
     return detailResult.then((detailData) => {
       return new SuccessModel(detailData);
     });
   }
   // 新建博客
-  if (method === "POST" && res.path === "/api/blog/new") {
+  if (method === "POST" && req.path === "/api/blog/new") {
     const loginCheckRes = loginCheck(req);
     if (loginCheckRes) {
       // 未登录
@@ -50,7 +50,7 @@ const handleBlogRouter = (req, res) => {
     });
   }
   // 更新博客
-  if (method === "POST" && res.path === "/api/blog/update") {
+  if (method === "POST" && req.path === "/api/blog/update") {
     const loginCheckRes = loginCheck(req);
     if (loginCheckRes) {
       // 未登录
@@ -65,7 +65,7 @@ const handleBlogRouter = (req, res) => {
     });
   }
   // 删除博客
-  if (method === "POST" && res.path === "/api/blog/delete") {
+  if (method === "POST" && req.path === "/api/blog/delete") {
     const loginCheckRes = loginCheck(req);
     if (loginCheckRes) {
       // 未登录
